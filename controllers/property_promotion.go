@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
 
 	model "github.com/Rizqirf/go_echo/models"
@@ -28,8 +27,6 @@ func GetById(c echo.Context) error {
 	promotion := model.PropertyPromotion{}
 	id := c.Param("id")
 
-	fmt.Println(id)
-
 	if err := db.Where("Id = ?",id).First(&promotion).Error; err != nil {
 		return c.JSON(http.StatusNotFound, "Data Not Found")
 	}
@@ -40,7 +37,7 @@ func GetById(c echo.Context) error {
 func Create(c echo.Context) error {
 	db := storage.GetDBInstance()
 	var input model.PropertyPromotionInput 
-	
+
 	if err := c.Bind(&input); err!= nil{
 		return c.JSON(http.StatusBadRequest,"Bad Request")
 	}
